@@ -56,6 +56,10 @@ export default function Input() {
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
+    //This is actually a nasty bug. '.length' calculates the length of
+    //strings based on utf-16. But some foreign characters, and emoji's
+    // are utf-32, making them count as two(!!) characters.
+    //for example the ❤️ emoji being &#10084;&#65039
     color: text.length > 10 ? 'crimson'
                             : 'royalblue', /* STEP 2 */
   };
