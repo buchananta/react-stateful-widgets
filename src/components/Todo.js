@@ -17,6 +17,8 @@ const keys = function() {
 export default function Todo() {
   //I need an array of objects
   const [list, updateList] = React.useState([]);
+
+  //strikethrough or erase items
   function strike(event) {
     if (event.target.classList.contains('strikethrough')) {
       event.target.style = 'display: none';
@@ -24,6 +26,7 @@ export default function Todo() {
       event.target.classList.toggle('strikethrough');
     }
   }
+
   function addItem(event) {
     event.preventDefault();
     //well, I had to learn how forms work, but I figured it out :D
@@ -48,7 +51,7 @@ export default function Todo() {
           }
         </ul>
       </div>
-      <div comment='this is where Ill try to start the form'>
+      <div>
         <form onSubmit={addItem}>
           <input type="text" name="text" />
           <button type="submit">add</button>
