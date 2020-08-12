@@ -38,30 +38,38 @@ import React from 'react'; /* STEP 0 */
 
 export default function Input() {
   /* STEP 1 */
-
+  const [text, setText] = React.useState('');
+  
   const changeInput = evt => {
     // When the input changes, its whole value can be found inside the event object.
     // Log out the synthetic event object 'evt' and see for yourself.
     const { value } = evt.target;
-
+    setText(value);
+    console.log(value);
     /* STEP 4 */
   };
   const reset = () => {
     /* STEP 5 */
+    setText('');
   };
 
   const style = {
     fontSize: '1.5em',
     marginBottom: '0.3em',
-    color: 'royalblue', /* STEP 2 */
+    //This is actually a nasty bug. '.length' calculates the length of
+    //strings based on utf-16. But some foreign characters, and emoji's
+    // are utf-32, making them count as two(!!) characters.
+    //for example the ❤️ emoji being &#10084;&#65039
+    color: text.length > 10 ? 'crimson'
+                            : 'royalblue', /* STEP 2 */
   };
 
   return (
     <div className='widget-input container'>
       <h2>Input</h2>
-      <div style={style}></div> {/* STEP 3 */}
+      <div style={style}>{text.toUpperCase()}</div> {/* STEP 3 */}
       <div>
-        <input type='text' onChange={changeInput} /> {/* STEP 6 */}
+        <input value={text} type='text' onChange={changeInput} /> {/* STEP 6 */}
         <button onClick={reset}>Reset</button>
       </div>
     </div>
